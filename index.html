@@ -715,7 +715,7 @@
 
     <div class="rsvp-container" data-aos="fade-up">
       <h3 style="margin-bottom: 20px;">Konfirmasi Kehadiran</h3>
-      <form
+      <form id="rsvp-form"
         action="https://script.google.com/macros/s/AKfycbzT5y0RvtN9Eov8G9NV3oIsTz0-kqxM9jcFrhhkKExAzcZ-_zqLfI3kdbloTlvi9g-otA/exec"
         method="POST">
         <input type="text" name="nama" placeholder="Nama Lengkap" required>
@@ -726,7 +726,7 @@
         </select>
         <input type="number" name="jumlah" placeholder="Jumlah Orang" min="1" max="5">
         <textarea name="pesan" rows="3" placeholder="Pesan / Doa untuk mempelai"></textarea>
-        <button type="submit" class="btn">Kirim Konfirmasi</button>
+        <button type="submit" class="btn" id="btn-submit">Kirim Konfirmasi</button>
       </form>
 
       <div class="comments-box">
@@ -895,6 +895,35 @@
 
     // Panggil fungsi saat halaman dimuat
     window.addEventListener('DOMContentLoaded', fetchComments);
+
+    // Form Submit Handler
+    const form = document.getElementById('rsvp-form');
+    const btnSubmit = document.getElementById('btn-submit');
+
+    if(form) {
+      form.addEventListener('submit', e => {
+        e.preventDefault();
+        
+        const originalText = btnSubmit.innerText;
+        btnSubmit.innerText = 'Mengirim...';
+        btnSubmit.disabled = true;
+
+        fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+          .then(response => {
+            alert('Terima kasih! Konfirmasi kehadiran & doa Anda telah terkirim.');
+            form.reset();
+            fetchComments(); // Refresh list ucapan
+          })
+          .catch(error => {
+            console.error('Error!', error.message);
+            alert('Terjadi kesalahan. Silakan coba lagi.');
+          })
+          .finally(() => {
+            btnSubmit.innerText = originalText;
+            btnSubmit.disabled = false;
+          });
+      });
+    }
 
   </script>
 </body>
