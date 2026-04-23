@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Undangan Pernikahan</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- AOS Animation -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #c5a880;
+      /* Soft Gold/Beige */
+      --secondary: #5a5043;
+      /* Dark earthy brown */
+      --bg: #faf7f2;
+      --text: #4a4a4a;
+      --white: #ffffff;
+
+      --font-heading: 'Playfair Display', serif;
+      --font-body: 'Outfit', sans-serif;
+      --font-accent: 'Great Vibes', cursive;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-family: var(--font-heading);
+      color: var(--secondary);
+      font-weight: 600;
+    }
+
+    .accent-text {
+      font-family: var(--font-accent);
+      color: var(--primary);
+      font-size: 3rem;
+      font-weight: 400;
+    }
+
+    section {
+      padding: 80px 20px;
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    /* Cover Overlay */
+    #cover {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80') center/cover;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: var(--white);
+      transition: top 1s ease-in-out;
+    }
+
+    #cover.open {
+      top: -100vh;
+    }
+
+    #cover h4 {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      color: var(--white);
+    }
+
+    #cover h1 {
+      font-family: var(--font-accent);
+      font-size: 5rem;
+      margin: 10px 0;
+      color: var(--white);
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    #cover p {
+      font-size: 1.1rem;
+      margin-bottom: 30px;
+    }
+
+    .btn {
+      background-color: var(--primary);
+      color: var(--white);
+      border: none;
+      padding: 12px 30px;
+      border-radius: 30px;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+      display: inline-block;
+      box-shadow: 0 4px 15px rgba(197, 168, 128, 0.4);
+    }
+
+    .btn:hover {
+      background-color: #b0926a;
+      transform: translateY(-3px);
+    }
+
+    .btn-outline {
+      background-color: transparent;
+      border: 1px solid var(--primary);
+      color: var(--primary);
+    }
+
+    .btn-outline:hover {
+      background-color: var(--primary);
+      color: var(--white);
+    }
+
+    /* Doa Section */
+    #doa {
+      background-color: var(--white);
+      border-radius: 20px;
+      padding: 50px 30px;
+      margin-top: 50px;
+      margin-bottom: 50px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+      position: relative;
+    }
+
+    #doa::before {
+      content: '\f10d';
+      font-family: 'FontAwesome';
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2rem;
+      color: var(--primary);
+      opacity: 0.3;
+    }
+
+    /* Mempelai */
+    .couple-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 50px;
+      margin-top: 40px;
+    }
+
+    .person {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .person img {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 5px solid var(--white);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+
+    .person h3 {
+      font-size: 2rem;
+      margin-bottom: 5px;
+    }
+
+    .ampersand {
+      font-family: var(--font-accent);
+      font-size: 4rem;
+      color: var(--primary);
+      margin: -20px 0;
+    }
+
+    /* Resepsi / Acara */
+    .event-cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: 40px;
+      justify-content: center;
+    }
+
+    .event-card {
+      background: var(--white);
+      flex: 1;
+      min-width: 280px;
+      padding: 40px 20px;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+      border-top: 4px solid var(--primary);
+    }
+
+    .event-card i {
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 15px;
+    }
+
+    .event-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+    }
+
+    .event-card p {
+      margin-bottom: 10px;
+    }
+
+    /* Countdown */
+    .countdown {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 40px;
+    }
+
+    .cd-item {
+      background: var(--primary);
+      color: var(--white);
+      width: 70px;
+      height: 70px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(197, 168, 128, 0.4);
+    }
+
+    .cd-item span {
+      font-size: 1.5rem;
+      font-weight: 600;
+      line-height: 1;
+    }
+
+    .cd-item small {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      margin-top: 5px;
+    }
+
+    /* Kisah Cinta (Timeline) */
+    .timeline {
+      position: relative;
+      max-width: 600px;
+      margin: 40px auto 0;
+    }
+
+    .timeline::after {
+      content: '';
+      position: absolute;
+      width: 2px;
+      background-color: var(--primary);
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      margin-left: -1px;
+    }
+
+    .timeline-item {
+      padding: 10px 40px;
+      position: relative;
+      background-color: inherit;
+      width: 50%;
+    }
+
+    .timeline-item::after {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      right: -8px;
+      background-color: var(--white);
+      border: 3px solid var(--primary);
+      top: 15px;
+      border-radius: 50%;
+      z-index: 1;
+    }
+
+    .left {
+      left: 0;
+      text-align: right;
+    }
+
+    .right {
+      left: 50%;
+      text-align: left;
+    }
+
+    .right::after {
+      left: -8px;
+    }
+
+    .timeline-content {
+      padding: 20px;
+      background-color: var(--white);
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .timeline-content h4 {
+      color: var(--primary);
+      margin-bottom: 5px;
+    }
+
+    /* Gallery */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-top: 40px;
+    }
+
+    .gallery-grid img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 10px;
+      transition: transform 0.3s ease;
+    }
+
+    .gallery-grid img:hover {
+      transform: scale(1.03);
+    }
+
+    /* RSVP & Maps */
+    .rsvp-container {
+      background: var(--white);
+      padding: 40px 20px;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+      margin-top: 40px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-bottom: 30px;
+      text-align: left;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .map-container {
+      width: 100%;
+      height: 300px;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 20px;
+    }
+
+    .map-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* Kado */
+    .gift-card {
+      background: var(--white);
+      padding: 30px;
+      border-radius: 15px;
+      margin-top: 20px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .gift-card img {
+      height: 30px;
+      margin-bottom: 15px;
+    }
+
+    .gift-card h4 {
+      font-size: 1.2rem;
+      margin-bottom: 5px;
+    }
+
+    .gift-card p {
+      font-size: 1.2rem;
+      letter-spacing: 2px;
+      font-weight: 500;
+      margin-bottom: 15px;
+    }
+
+    /* Ucapan / Comments */
+    .comments-box {
+      margin-top: 40px;
+      text-align: left;
+      border-top: 1px solid #eee;
+      padding-top: 20px;
+    }
+
+    .comments-list {
+      max-height: 300px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      padding-right: 5px;
+      margin-top: 15px;
+    }
+
+    .comment-item {
+      background: #faf7f2;
+      border-left: 3px solid var(--primary);
+      padding: 15px;
+      border-radius: 0 10px 10px 0;
+    }
+
+    .comment-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 5px;
+    }
+
+    .badge {
+      font-size: 0.7rem;
+      padding: 3px 8px;
+      border-radius: 20px;
+      background: var(--primary);
+      color: var(--white);
+    }
+
+    .badge-tidak {
+      background: #999;
+    }
+
+    /* Footer */
+    footer {
+      background-color: var(--secondary);
+      color: var(--white);
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    footer h2 {
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+
+    /* Music Button */
+    .music-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 50px;
+      height: 50px;
+      background: var(--primary);
+      color: var(--white);
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      z-index: 999;
+      font-size: 1.2rem;
+      animation: spin 4s linear infinite;
+    }
+
+    .music-btn.paused {
+      animation: none;
+    }
+
+    @keyframes spin {
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .timeline::after {
+        left: 31px;
+      }
+
+      .timeline-item {
+        width: 100%;
+        padding-left: 70px;
+        padding-right: 25px;
+      }
+
+      .timeline-item::after {
+        left: 23px;
+      }
+
+      .left {
+        text-align: left;
+      }
+
+      .right {
+        left: 0;
+      }
+
+      .accent-text {
+        font-size: 2.5rem;
+      }
+
+      #cover h1 {
+        font-size: 4rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Audio Element -->
+  <audio id="bg-music" loop>
+    <!-- Placeholder for music, users usually add their own -->
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Music Control -->
+  <div class="music-btn paused" id="music-btn" onclick="toggleMusic()">
+    <i class="fas fa-music"></i>
+  </div>
+
+  <!-- 1. Halaman Cover -->
+  <div id="cover">
+    <h4 data-aos="fade-down" data-aos-duration="1000">The Wedding Of</h4>
+    <h1 data-aos="zoom-in" data-aos-duration="1500">Romeo & Juliet</h1>
+    <p data-aos="fade-up" data-aos-duration="1000">Minggu, 20 Mei 2026</p>
+    <p data-aos="fade-up" data-aos-delay="200" style="font-size: 0.9rem; margin-bottom: 20px;">Kpd Bpk/Ibu/Saudara/i</p>
+    <div data-aos="fade-up" data-aos-delay="300"
+      style="margin-bottom: 30px; padding: 10px 20px; background: rgba(255,255,255,0.2); border-radius: 8px; backdrop-filter: blur(5px);">
+      <strong id="nama-tamu">Tamu Undangan</strong>
+    </div>
+    <button class="btn" onclick="openInvitation()" data-aos="fade-up" data-aos-delay="400">
+      <i class="fas fa-envelope-open mr-2"></i> Buka Undangan
+    </button>
+  </div>
+
+  <!-- 2. Doa / Pembuka -->
+  <section id="doa" data-aos="fade-up">
+    <div style="font-family: 'Great Vibes', cursive; font-size: 2rem; margin-bottom: 10px;">Bismillah...</div>
+    <p style="font-style: italic; color: #666;">
+      "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri, supaya
+      kamu cenderung dan merasa tenteram kepadanya, dan dijadikan-Nya diantaramu rasa kasih dan sayang. Sesungguhnya
+      pada yang demikian itu benar-benar terdapat tanda-tanda bagi kaum yang berfikir."
+    </p>
+    <h4 style="margin-top: 15px;">(QS. Ar-Rum: 21)</h4>
+  </section>
+
+  <!-- 3. Kedua Mempelai -->
+  <section id="mempelai">
+    <h2 class="accent-text" data-aos="fade-up">Kedua Mempelai</h2>
+    <p data-aos="fade-up" data-aos-delay="100" style="margin-bottom: 40px;">Maha Suci Allah yang telah menciptakan
+      makhluk-Nya berpasang-pasangan. Ya Allah perkenankanlah kami merangkai kasih sayang yang Kau ciptakan di antara
+      putra-putri kami:</p>
+
+    <div class="couple-wrapper">
+      <div class="person" data-aos="fade-right">
+        <img
+          src="https://images.unsplash.com/photo-1541250848049-b4f7141fca3f?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+          alt="Groom">
+        <h3>Romeo Montague</h3>
+        <p>Putra Pertama dari<br>Bpk. Montague & Ibu Lady Montague</p>
+        <a href="#" style="color: var(--primary); margin-top: 10px; text-decoration: none;"><i
+            class="fab fa-instagram"></i> @romeo</a>
+      </div>
+
+      <div class="ampersand" data-aos="zoom-in">&</div>
+
+      <div class="person" data-aos="fade-left">
+        <img
+          src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+          alt="Bride">
+        <h3>Juliet Capulet</h3>
+        <p>Putri Kedua dari<br>Bpk. Capulet & Ibu Lady Capulet</p>
+        <a href="#" style="color: var(--primary); margin-top: 10px; text-decoration: none;"><i
+            class="fab fa-instagram"></i> @juliet</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Resepsi & Acara -->
+  <section id="acara">
+    <h2 class="accent-text" data-aos="fade-up">Detail Acara</h2>
+    <p data-aos="fade-up" data-aos-delay="100">Dengan memohon rahmat dan ridho Allah SWT, kami mengundang
+      Bapak/Ibu/Saudara/i untuk menghadiri acara pernikahan kami yang akan diselenggarakan pada:</p>
+
+    <div class="countdown" data-aos="zoom-in">
+      <div class="cd-item"><span id="days">00</span><small>Hari</small></div>
+      <div class="cd-item"><span id="hours">00</span><small>Jam</small></div>
+      <div class="cd-item"><span id="minutes">00</span><small>Menit</small></div>
+      <div class="cd-item"><span id="seconds">00</span><small>Detik</small></div>
+    </div>
+
+    <div class="event-cards">
+      <div class="event-card" data-aos="fade-up" data-aos-delay="100">
+        <i class="fas fa-ring"></i>
+        <h3>Akad Nikah</h3>
+        <p><strong>Minggu, 20 Mei 2026</strong></p>
+        <p>08.00 WIB - Selesai</p>
+        <p>Masjid Raya Al-Bantani, Serang</p>
+      </div>
+      <div class="event-card" data-aos="fade-up" data-aos-delay="200">
+        <i class="fas fa-glass-cheers"></i>
+        <h3>Resepsi</h3>
+        <p><strong>Minggu, 20 Mei 2026</strong></p>
+        <p>11.00 WIB - Selesai</p>
+        <p>Gedung Serbaguna Surosowan</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Kisah Cinta -->
+  <section id="story">
+    <h2 class="accent-text" data-aos="fade-up">Kisah Cinta</h2>
+    <div class="timeline">
+      <div class="timeline-item left" data-aos="fade-right">
+        <div class="timeline-content">
+          <h4>Pertama Bertemu</h4>
+          <p>Januari 2020</p>
+          <p style="font-size: 0.9rem;">Bertemu pertama kali di sebuah acara kampus. Saling bertukar pandang namun belum
+            berani menyapa.</p>
+        </div>
+      </div>
+      <div class="timeline-item right" data-aos="fade-left">
+        <div class="timeline-content">
+          <h4>Mulai Dekat</h4>
+          <p>Maret 2022</p>
+          <p style="font-size: 0.9rem;">Dipertemukan kembali dalam sebuah project kerjaan, dari rekan kerja menjadi
+            teman cerita.</p>
+        </div>
+      </div>
+      <div class="timeline-item left" data-aos="fade-right">
+        <div class="timeline-content">
+          <h4>Lamaran</h4>
+          <p>Desember 2024</p>
+          <p style="font-size: 0.9rem;">Dengan niat yang baik, Romeo dan keluarganya datang ke rumah Juliet untuk
+            melamar.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Galeri Foto -->
+  <section id="gallery">
+    <h2 class="accent-text" data-aos="fade-up">Galeri Foto</h2>
+    <div class="gallery-grid">
+      <img
+        src="https://images.unsplash.com/photo-1511895426328-dc8714191300?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+        data-aos="zoom-in" data-aos-delay="100">
+      <img
+        src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+        data-aos="zoom-in" data-aos-delay="200">
+      <img
+        src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+        data-aos="zoom-in" data-aos-delay="300">
+      <img
+        src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+        data-aos="zoom-in" data-aos-delay="400">
+    </div>
+  </section>
+
+  <!-- 7. RSVP & Maps -->
+  <section id="rsvp">
+    <h2 class="accent-text" data-aos="fade-up">Kehadiran & Lokasi</h2>
+
+    <div class="rsvp-container" data-aos="fade-up">
+      <h3 style="margin-bottom: 20px;">Konfirmasi Kehadiran</h3>
+      <form
+        action="https://script.google.com/macros/s/AKfycbzT5y0RvtN9Eov8G9NV3oIsTz0-kqxM9jcFrhhkKExAzcZ-_zqLfI3kdbloTlvi9g-otA/exec"
+        method="POST">
+        <input type="text" name="nama" placeholder="Nama Lengkap" required>
+        <select name="kehadiran" required>
+          <option value="" disabled selected>Apakah Anda akan hadir?</option>
+          <option value="Hadir">Ya, Saya akan hadir</option>
+          <option value="Tidak">Maaf, saya tidak bisa hadir</option>
+        </select>
+        <input type="number" name="jumlah" placeholder="Jumlah Orang" min="1" max="5">
+        <textarea name="pesan" rows="3" placeholder="Pesan / Doa untuk mempelai"></textarea>
+        <button type="submit" class="btn">Kirim Konfirmasi</button>
+      </form>
+
+      <div class="comments-box">
+        <h4 style="color: var(--secondary); margin-bottom: 10px;">Doa & Ucapan Tamu</h4>
+        <div id="comments-list" class="comments-list">
+          <p style="font-size: 0.9rem; color: #888; text-align: center;">Belum ada ucapan. Jadilah yang pertama
+            memberikan doa!</p>
+        </div>
+      </div>
+
+      <h3 style="margin-bottom: 10px; margin-top: 40px;">Peta Lokasi</h3>
+      <div class="map-container">
+        <!-- Placeholder for Maps -->
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126907.0347895057!2d106.74548489370808!3d-6.229728025217983!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f3e945e34b9d%3A0x100c5e82dd4b820!2sJakarta!5e0!3m2!1sen!2sid!4v1684305881471!5m2!1sen!2sid"
+          allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+      <a href="https://maps.google.com" target="_blank" class="btn btn-outline" style="margin-top: 15px;"><i
+          class="fas fa-map-marker-alt"></i> Buka Google Maps</a>
+    </div>
+  </section>
+
+  <!-- 8. Kado -->
+  <section id="kado">
+    <h2 class="accent-text" data-aos="fade-up">Kado Digital</h2>
+    <p data-aos="fade-up">Kehadiran serta doa restu Bapak/Ibu/Saudara/i merupakan kado terindah bagi kami. Namun, jika
+      Bapak/Ibu/Saudara/i ingin memberikan tanda kasih, dapat melalui fitur di bawah ini:</p>
+
+    <div class="gift-card" data-aos="fade-up" data-aos-delay="100">
+      <i class="fas fa-university" style="font-size: 2rem; color: var(--primary); margin-bottom: 10px;"></i>
+      <h4>BCA</h4>
+      <p id="rek1">1234567890</p>
+      <p style="font-size: 0.9rem; letter-spacing: 0; margin-bottom: 15px;">A.n Romeo Montague</p>
+      <button class="btn btn-outline" onclick="copyText('rek1')">Salin Nomor</button>
+    </div>
+
+    <div class="gift-card" data-aos="fade-up" data-aos-delay="200">
+      <i class="fas fa-gift" style="font-size: 2rem; color: var(--primary); margin-bottom: 10px;"></i>
+      <h4>Alamat Kirim Kado</h4>
+      <p style="font-size: 0.9rem; letter-spacing: 0; margin-bottom: 15px;" id="alamat">Jl. Mawar Merah No. 12, Jakarta
+        Selatan 12345</p>
+      <button class="btn btn-outline" onclick="copyText('alamat')">Salin Alamat</button>
+    </div>
+  </section>
+
+  <!-- 9. Terimakasih -->
+  <footer data-aos="fade-up">
+    <h2>Terima Kasih</h2>
+    <p>Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan
+      doa restu.</p>
+    <p style="margin-top: 20px; font-family: var(--font-accent); font-size: 2.5rem; color: var(--primary);">Romeo &
+      Juliet</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    // Initialize Animations
+    AOS.init({
+      once: true,
+      duration: 1000
+    });
+
+    // Open Invitation Function
+    function openInvitation() {
+      document.getElementById('cover').classList.add('open');
+      document.body.style.overflow = 'auto'; // Enable scroll
+
+      // Play Music
+      const music = document.getElementById('bg-music');
+      const musicBtn = document.getElementById('music-btn');
+      music.play().then(() => {
+        musicBtn.classList.remove('paused');
+      }).catch(err => {
+        console.log('Autoplay blocked');
+      });
+    }
+
+    // Lock scroll initially
+    document.body.style.overflow = 'hidden';
+
+    // Music Toggle
+    function toggleMusic() {
+      const music = document.getElementById('bg-music');
+      const musicBtn = document.getElementById('music-btn');
+      if (music.paused) {
+        music.play();
+        musicBtn.classList.remove('paused');
+      } else {
+        music.pause();
+        musicBtn.classList.add('paused');
+      }
+    }
+
+    // Copy Function
+    function copyText(id) {
+      const text = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Berhasil disalin!");
+      });
+    }
+
+    // Countdown Timer (Set date to May 20, 2026)
+    const countDownDate = new Date("May 20, 2026 08:00:00").getTime();
+    const x = setInterval(function () {
+      const now = new Date().getTime();
+      const distance = countDownDate - now;
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById("days").innerHTML = days < 10 ? '0' + days : days;
+      document.getElementById("hours").innerHTML = hours < 10 ? '0' + hours : hours;
+      document.getElementById("minutes").innerHTML = minutes < 10 ? '0' + minutes : minutes;
+      document.getElementById("seconds").innerHTML = seconds < 10 ? '0' + seconds : seconds;
+
+      if (distance < 0) {
+        clearInterval(x);
+        document.getElementById("days").innerHTML = "00";
+        document.getElementById("hours").innerHTML = "00";
+        document.getElementById("minutes").innerHTML = "00";
+        document.getElementById("seconds").innerHTML = "00";
+      }
+    }, 1000);
+
+    // Get URL Parameter for Guest Name
+    const urlParams = new URLSearchParams(window.location.search);
+    const guestName = urlParams.get('to');
+    if (guestName) {
+      document.getElementById('nama-tamu').innerText = guestName;
+    }
+
+    // Fetch Guest Comments
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzT5y0RvtN9Eov8G9NV3oIsTz0-kqxM9jcFrhhkKExAzcZ-_zqLfI3kdbloTlvi9g-otA/exec';
+
+    function fetchComments() {
+      fetch(scriptURL)
+        .then(response => response.json())
+        .then(data => {
+          const commentsList = document.getElementById('comments-list');
+
+          // Filter hanya yang memiliki nama dan pesan
+          const validComments = data.filter(item => item.nama && item.pesan);
+
+          if (validComments.length > 0) {
+            commentsList.innerHTML = ''; // Hapus tulisan default
+            validComments.forEach(item => {
+              const badgeClass = item.kehadiran === 'Hadir' ? 'badge' : 'badge badge-tidak';
+              const html = `
+                <div class="comment-item">
+                  <div class="comment-header">
+                    <strong>${item.nama}</strong> 
+                    <span class="${badgeClass}">${item.kehadiran || '-'}</span>
+                  </div>
+                  <p style="font-size:0.9rem; color:#555;">"${item.pesan}"</p>
+                </div>
+              `;
+              commentsList.insertAdjacentHTML('beforeend', html);
+            });
+          }
+        })
+        .catch(error => console.error('Error fetching comments!', error.message));
+    }
+
+    // Panggil fungsi saat halaman dimuat
+    window.addEventListener('DOMContentLoaded', fetchComments);
+
+  </script>
+</body>
+
+</html>
