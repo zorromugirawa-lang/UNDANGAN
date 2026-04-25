@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terima Kasih - Roy & Ida</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- AOS Animation -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #c5a880;
+      --secondary: #5a5043;
+      --bg: #faf7f2;
+      --text: #4a4a4a;
+      --white: #ffffff;
+      --font-heading: 'Playfair Display', serif;
+      --font-body: 'Outfit', sans-serif;
+      --font-accent: 'Great Vibes', cursive;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: #000;
+      color: var(--white);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)),
+        url('assets/ahir.jpg') center/cover no-repeat;
+      z-index: -1;
+    }
+
+    .content {
+      padding: 30px;
+      z-index: 1;
+      max-width: 700px;
+    }
+
+    h1 {
+      font-family: var(--font-accent);
+      font-size: 5rem;
+      margin-bottom: 20px;
+      color: var(--white);
+      text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.5);
+    }
+
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      line-height: 1.8;
+      font-weight: 300;
+      text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+    }
+
+    .names {
+      font-family: var(--font-heading);
+      font-size: 2.5rem;
+      margin-top: 20px;
+      color: var(--primary);
+      text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+    }
+
+    .btn {
+      background-color: var(--primary);
+      color: var(--white);
+      border: none;
+      padding: 12px 35px;
+      border-radius: 30px;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+      display: inline-block;
+      box-shadow: 0 4px 15px rgba(197, 168, 128, 0.4);
+      margin-top: 40px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .btn:hover {
+      background-color: #cc9d01;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(197, 168, 128, 0.6);
+    }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 3.5rem;
+      }
+
+      p {
+        font-size: 1rem;
+      }
+
+      .names {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="background"></div>
+
+  <div class="content">
+    <h1 data-aos="fade-down" data-aos-duration="1500">Terima Kasih</h1>
+    <p data-aos="fade-up" data-aos-duration="1500" data-aos-delay="300">
+      Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan
+      doa restu kepada kami.
+    </p>
+    <div class="names" data-aos="zoom-in" data-aos-duration="1500" data-aos-delay="600">
+      Roy & Ida
+    </div>
+    <a href="index.html" class="btn" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="900">
+      <i class="fas fa-home"></i> Beranda
+    </a>
+  </div>
+
+  <footer
+    style="position: absolute; bottom: 30px; width: 100%; text-align: center; color: rgba(255,255,255,0.7); font-size: 0.9rem; z-index: 10;">
+    <div style="display: flex; justify-content: center; align-items: center; gap: 15px; flex-wrap: wrap;">
+      <span>Created With</span>
+      <a href="https://instagram.com/baiinst" target="_blank"
+        style="color: var(--primary); text-decoration: none; display: flex; align-items: center; gap: 5px; font-weight: 500;">
+        <i class="fab fa-instagram"></i> @baiinst
+      </a>
+      <span style="opacity: 0.3;">|</span>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <img src="assets/SF.png" alt="SF Logo" style="height: 30px; filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));">
+        <span style="font-weight: 500; letter-spacing: 1px;">TIM UNDANGAN</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      once: true
+    });
+  </script>
+</body>
+
+</html>

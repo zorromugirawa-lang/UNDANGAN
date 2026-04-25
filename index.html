@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Undangan Pernikahan</title>
+  <title>The Wedding of Roy & Ida</title>
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -154,7 +154,7 @@
     }
 
     .btn:hover {
-      background-color: #b0926a;
+      background-color: #cc9d01;
       transform: translateY(-3px);
     }
 
@@ -195,6 +195,16 @@
       font-size: 2rem;
       color: var(--primary);
       opacity: 0.3;
+    }
+
+    /* Mempelai Section */
+    #mempelai {
+      background: linear-gradient(rgba(255, 189, 114, 0.5), rgba(255, 255, 255, 0.5)),
+        url('assets/bg2.jpg') center/cover;
+      border-radius: 20px;
+      margin-top: 50px;
+      padding: 80px 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
     }
 
     /* Mempelai */
@@ -505,10 +515,15 @@
 
     /* Footer */
     footer {
-      background-color: var(--secondary);
+      min-height: 100vh;
+      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url('assets/ahir.jpg') center/cover no-repeat;
       color: var(--white);
       text-align: center;
-      padding: 40px 20px;
+      padding: 80px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
 
     footer h2 {
@@ -601,8 +616,8 @@
     </video>
     <div class="overlay"></div>
     <h4 data-aos="fade-down" data-aos-duration="1000">The Wedding Of</h4>
-    <h1 data-aos="zoom-in" data-aos-duration="1500">Romeo & Juliet</h1>
-    <p data-aos="fade-up" data-aos-duration="1000">Minggu, 20 Mei 2026</p>
+    <h1 data-aos="zoom-in" data-aos-duration="1500">Roy & Ida</h1>
+    <p data-aos="fade-up" data-aos-duration="1000">Minggu, 07 Juni 2026</p>
     <p data-aos="fade-up" data-aos-delay="200" style="font-size: 0.9rem; margin-bottom: 20px;">Kpd Bpk/Ibu/Saudara/i</p>
     <div data-aos="fade-up" data-aos-delay="300"
       style="margin-bottom: 30px; padding: 10px 20px; background: rgba(255,255,255,0.2); border-radius: 8px; backdrop-filter: blur(5px);">
@@ -677,7 +692,7 @@
         <i class="fas fa-glass-cheers"></i>
         <h3>Resepsi</h3>
         <p><strong>Minggu, 18 - 19 Juni 2026</strong></p>
-        <p>Jl. Cendana No. 01
+        <p>Jl. Cendana Rt 02 Rw 05 Pamulian Kec. Warungpring Kab. Pemalang
         </p>
       </div>
     </div>
@@ -795,13 +810,28 @@
     </div>
   </section>
 
-  <!-- 9. Terimakasih -->
   <footer data-aos="fade-up">
-    <h2>Terima Kasih</h2>
-    <p>Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan
+    <h1 class="accent-text" style="color: var(--white); font-size: 5rem; margin-bottom: 20px;">Terima Kasih</h1>
+    <p style="max-width: 600px; margin: 0 auto; font-size: 1.2rem;">Merupakan suatu kehormatan dan kebahagiaan bagi kami
+      apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan
       doa restu.</p>
-    <p style="margin-top: 20px; font-family: var(--font-accent); font-size: 2.5rem; color: var(--primary);">Romeo &
-      Juliet</p>
+    <p style="margin-top: 30px; font-family: var(--font-accent); font-size: 3rem; color: var(--primary);">Roy & Ida</p>
+
+    <div style="margin-top: 50px; border-top: 1px solid rgba(255,255,255,0.1); pt-20; width: 100%; max-width: 600px;">
+      <div
+        style="display: flex; justify-content: center; align-items: center; gap: 15px; flex-wrap: wrap; color: rgba(255,255,255,0.7); font-size: 0.9rem; margin-top: 20px;">
+        <span>Created With</span>
+        <a href="https://instagram.com/baiinst" target="_blank"
+          style="color: var(--primary); text-decoration: none; display: flex; align-items: center; gap: 5px; font-weight: 500;">
+          <i class="fab fa-instagram"></i> @baiinst
+        </a>
+        <span style="opacity: 0.3;">|</span>
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <img src="assets/SF.png" alt="SF Logo" style="height: 30px;">
+          <span style="font-weight: 500; letter-spacing: 1px;">TIM UNDANGAN</span>
+        </div>
+      </div>
+    </div>
   </footer>
 
   <!-- Scripts -->
@@ -852,8 +882,8 @@
       });
     }
 
-    // Countdown Timer (Set date to May 20, 2026)
-    const countDownDate = new Date("May 20, 2026 08:00:00").getTime();
+    // Countdown Timer (Set date to June 7, 2026)
+    const countDownDate = new Date("June 7, 2026 11:00:00").getTime();
     const x = setInterval(function () {
       const now = new Date().getTime();
       const distance = countDownDate - now;
