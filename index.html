@@ -40,11 +40,18 @@
       box-sizing: border-box;
     }
 
+    html {
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+      width: 100%;
+    }
+
     body {
       font-family: var(--font-body);
       background-color: var(--bg);
       color: var(--text);
       overflow-x: hidden;
+      width: 100%;
       line-height: 1.6;
     }
 
@@ -75,7 +82,7 @@
       position: fixed;
       top: 0;
       left: 0;
-      width: 100vw;
+      width: 100%;
       height: 100vh;
       background-color: #000;
       z-index: 9999;
@@ -83,7 +90,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      color: var(--white);
+      color: #000000;
       transition: top 1s ease-in-out;
       overflow: hidden;
     }
@@ -96,6 +103,16 @@
       height: 100%;
       object-fit: cover;
       z-index: -2;
+    }
+
+    .typing-cursor::after {
+      content: '|';
+      animation: blink 1s infinite;
+      color: #000000;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
     }
 
     #cover .overlay {
@@ -605,10 +622,62 @@
       margin-bottom: 10px;
     }
 
+    /* Bottom Navigation */
+    .bottom-nav {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      align-items: center;
+      padding: 10px 25px;
+      border-radius: 30px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(197, 168, 128, 0.3);
+      z-index: 998;
+      width: max-content;
+      max-width: 95%;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.5s ease;
+    }
+
+    .bottom-nav.show {
+      opacity: 1;
+      visibility: visible;
+      bottom: 30px;
+    }
+
+    .nav-item {
+      text-decoration: none;
+      color: var(--secondary);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 0.65rem;
+      gap: 3px;
+      flex: none;
+      transition: color 0.3s;
+    }
+
+    .nav-item i {
+      font-size: 1.1rem;
+    }
+
+    .nav-item:hover {
+      color: var(--primary);
+    }
+
     /* Music Button */
     .music-btn {
       position: fixed;
-      bottom: 20px;
+      top: 50%;
+      transform: translateY(-50%);
       right: 20px;
       width: 50px;
       height: 50px;
@@ -623,6 +692,14 @@
       z-index: 999;
       font-size: 1.2rem;
       animation: spin 4s linear infinite;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 1s ease, visibility 1s ease;
+    }
+
+    .music-btn.show-music {
+      opacity: 1;
+      visibility: visible;
     }
 
     .music-btn.paused {
@@ -630,8 +707,11 @@
     }
 
     @keyframes spin {
+      0% {
+        transform: translateY(-50%) rotate(0deg);
+      }
       100% {
-        transform: rotate(360deg);
+        transform: translateY(-50%) rotate(360deg);
       }
     }
 
@@ -672,6 +752,26 @@
 
 <body>
 
+  <!-- Bottom Navigation -->
+  <nav class="bottom-nav" id="bottom-nav">
+    <a href="#doa" class="nav-item">
+      <i class="fas fa-home"></i>
+      <span>Home</span>
+    </a>
+    <a href="#mempelai" class="nav-item">
+      <i class="fas fa-heart"></i>
+      <span>Mempelai</span>
+    </a>
+    <a href="#gallery" class="nav-item">
+      <i class="fas fa-images"></i>
+      <span>Gallery</span>
+    </a>
+    <a href="#kado" class="nav-item">
+      <i class="fas fa-gift"></i>
+      <span>Kado</span>
+    </a>
+  </nav>
+
   <!-- Audio Element -->
   <audio id="bg-music" loop>
     <!-- Placeholder for music, users usually add their own -->
@@ -686,16 +786,13 @@
   <!-- 1. Halaman Cover -->
   <div id="cover">
     <video class="bg-video" autoplay loop muted playsinline>
-      <source src="assets/bg1.mp4" type="video/mp4">
+      <source src="assets/bgb.mp4" type="video/mp4">
     </video>
     <div class="overlay"></div>
-    <h4 data-aos="fade-down" data-aos-duration="1000">The Wedding Of</h4>
-    <h1 data-aos="zoom-in" data-aos-duration="1500">Roy & Ida</h1>
-    <p data-aos="fade-up" data-aos-duration="1000">Minggu, 07 Juni 2026</p>
-    <p data-aos="fade-up" data-aos-delay="200" style="font-size: 0.9rem; margin-bottom: 20px;">Kpd Bpk/Ibu/Saudara/i</p>
-    <div data-aos="fade-up" data-aos-delay="300"
-      style="margin-bottom: 30px; padding: 10px 20px; background: rgba(255,255,255,0.2); border-radius: 8px; backdrop-filter: blur(5px);">
-      <strong id="nama-tamu">Tamu Undangan</strong>
+    <p id="cover-date" style="font-weight: 800; font-size: 1.2rem; min-height: 1.8rem; margin-bottom: 5px;"></p>
+    <p id="cover-kpd" style="font-weight: 800; font-size: 1rem; margin-bottom: 20px; min-height: 1.5rem;"></p>
+    <div style="margin-bottom: 30px; padding: 10px 20px; background: rgba(255,255,255,0.2); border-radius: 8px; backdrop-filter: blur(5px);">
+      <strong id="nama-tamu" style="font-weight: 900; font-size: 1.3rem; min-height: 1.9rem; display: inline-block;"></strong>
     </div>
     <button class="btn" onclick="openInvitation()" data-aos="fade-up" data-aos-delay="400">
       <i class="fas fa-envelope-open mr-2"></i> Buka Undangan
@@ -931,6 +1028,8 @@
     function openInvitation() {
       document.getElementById('cover').classList.add('open');
       document.body.style.overflow = 'auto'; // Enable scroll
+      document.getElementById('bottom-nav').classList.add('show');
+      document.getElementById('music-btn').classList.add('show-music');
 
       // Play Music
       const music = document.getElementById('bg-music');
@@ -994,9 +1093,58 @@
     // Get URL Parameter for Guest Name
     const urlParams = new URLSearchParams(window.location.search);
     const guestName = urlParams.get('to');
-    if (guestName) {
-      document.getElementById('nama-tamu').innerText = guestName;
+
+    // Typewriter effect for Cover
+    const coverTexts = [
+      { id: 'cover-date', text: 'Minggu, 07 Juni 2026' },
+      { id: 'cover-kpd', text: 'Kpd Bpk/Ibu/Saudara/i' },
+      { id: 'nama-tamu', text: guestName ? guestName : 'Tamu Undangan' }
+    ];
+
+    let currentTextIndex = 0;
+    let currentCharIndex = 0;
+
+    function typeCoverText() {
+      if (currentTextIndex < coverTexts.length) {
+        const currentItem = coverTexts[currentTextIndex];
+        const el = document.getElementById(currentItem.id);
+        
+        // Remove cursor from all
+        coverTexts.forEach(item => {
+          const element = document.getElementById(item.id);
+          if (element) element.classList.remove('typing-cursor');
+        });
+        
+        // Add cursor to current
+        if (el) el.classList.add('typing-cursor');
+
+        if (currentCharIndex < currentItem.text.length) {
+          if (el) el.innerHTML += currentItem.text.charAt(currentCharIndex);
+          currentCharIndex++;
+          setTimeout(typeCoverText, 70);
+        } else {
+          currentCharIndex = 0;
+          currentTextIndex++;
+          setTimeout(typeCoverText, 300);
+        }
+      } else {
+        const lastEl = document.getElementById('nama-tamu');
+        if (lastEl) lastEl.classList.remove('typing-cursor');
+        
+        // Reset and repeat after a pause
+        setTimeout(() => {
+          coverTexts.forEach(item => {
+            const el = document.getElementById(item.id);
+            if (el) el.innerHTML = '';
+          });
+          currentTextIndex = 0;
+          currentCharIndex = 0;
+          typeCoverText();
+        }, 3000);
+      }
     }
+
+    setTimeout(typeCoverText, 500);
 
     // Fetch Guest Comments
     const scriptURL = 'https://script.google.com/macros/s/AKfycbxKpkwu-JJtyXmM8gGE64jI0bBxfHC4Z24xlHyiT9gYhvzDbKX0PtVPbwyCMQb9r_kX7A/exec';
