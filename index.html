@@ -154,7 +154,7 @@
     }
 
     .btn:hover {
-      background-color: #cc9d01;
+      background-color: #947100;
       transform: translateY(-3px);
     }
 
@@ -171,18 +171,44 @@
 
     /* Doa Section */
     #doa {
-      background-color: var(--white);
+      position: relative;
       border-radius: 20px;
-      padding: 50px 30px;
-      margin-top: 50px;
-      margin-bottom: 50px;
-      min-height: 100vh;
+      padding: 80px 40px;
+      margin: 50px auto;
+      max-width: 900px;
+      min-height: 80vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.05);
+      border: 1px solid rgba(197, 168, 128, 0.2);
+      overflow: hidden;
+    }
+
+    #doa .bg-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+
+    #doa .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.7);
+      z-index: 1;
+    }
+
+    #doa>* {
       position: relative;
+      z-index: 2;
     }
 
     #doa::before {
@@ -197,10 +223,25 @@
       opacity: 0.3;
     }
 
+
+
+
+
+
     /* Mempelai Section */
     #mempelai {
       background: linear-gradient(rgba(255, 189, 114, 0.5), rgba(255, 255, 255, 0.5)),
         url('assets/bg2.jpg') center/cover;
+      border-radius: 20px;
+      margin-top: 50px;
+      padding: 80px 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+    }
+
+    /* Kisah Cinta Section */
+    #story {
+      background: linear-gradient(rgba(255, 255, 255, 0.7), rgba(216, 168, 65, 0.7)),
+        url('assets/sf03.png') center/cover no-repeat fixed;
       border-radius: 20px;
       margin-top: 50px;
       padding: 80px 20px;
@@ -221,14 +262,47 @@
       align-items: center;
     }
 
-    .person img {
+    .img-wrapper {
+      position: relative;
+      width: 220px;
+      height: 220px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-bottom: 20px;
+      box-shadow: 0 0 25px rgba(197, 168, 128, 0.6);
+    }
+
+    .img-wrapper::before {
+      content: '';
+      position: absolute;
+      width: 150%;
+      height: 150%;
+      background: conic-gradient(transparent, var(--primary), #f1bb46, var(--primary), transparent 50%);
+      animation: rotateNeon 3s linear infinite;
+    }
+
+    .img-wrapper img {
+      position: relative;
       width: 200px;
       height: 200px;
       object-fit: cover;
       border-radius: 50%;
-      border: 5px solid var(--white);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-      margin-bottom: 20px;
+      border: 4px solid var(--white);
+      z-index: 1;
+      margin-bottom: 0 !important;
+    }
+
+    @keyframes rotateNeon {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
     }
 
     .person h3 {
@@ -295,7 +369,7 @@
       justify-content: center;
       align-items: center;
       border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(197, 168, 128, 0.4);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
     }
 
     .cd-item span {
@@ -630,13 +704,19 @@
 
   <!-- 2. Doa / Pembuka -->
   <section id="doa" data-aos="fade-up">
-    <div style="font-family: 'Great Vibes', cursive; font-size: 2rem; margin-bottom: 10px;">Bismillah...</div>
-    <p style="font-style: italic; color: #666;">
+    <video class="bg-video" autoplay loop muted playsinline>
+      <source src="assets/bg2.mp4" type="video/mp4">
+    </video>
+    <div class="overlay"></div>
+
+    <div style="font-family: 'Great Vibes', cursive; font-size: 2.5rem; color: #000000; margin-bottom: 20px;">
+      Bismillahirrohmanirrohim...</div>
+    <p style="font-style: italic; color: #000000; font-size: 1.1rem; max-width: 600px; margin: 0 auto;">
       "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri, supaya
       kamu cenderung dan merasa tenteram kepadanya, dan dijadikan-Nya diantaramu rasa kasih dan sayang. Sesungguhnya
       pada yang demikian itu benar-benar terdapat tanda-tanda bagi kaum yang berfikir."
     </p>
-    <h4 style="margin-top: 15px;">(QS. Ar-Rum: 21)</h4>
+    <h4 style="margin-top: 20px; font-weight: 600; letter-spacing: 1px; color: #000000;">(QS. Ar-Rum: 21)</h4>
   </section>
 
   <!-- 3. Kedua Mempelai -->
@@ -648,7 +728,9 @@
 
     <div class="couple-wrapper">
       <div class="person" data-aos="fade-right">
-        <img src="assets/pria.png" alt="Groom">
+        <div class="img-wrapper">
+          <img src="assets/pria.png" alt="Groom">
+        </div>
         <h3>Baini Roikhani</h3>
         <p>Putra ke Lima dari<br>Bpk. Romadhon & Ibu Khamalah </p>
         <a href="#" style="color: var(--primary); margin-top: 10px; text-decoration: none;"><i
@@ -658,9 +740,11 @@
       <div class="ampersand" data-aos="zoom-in">&</div>
 
       <div class="person" data-aos="fade-left">
-        <img src="assets/wanita.png" alt="Bride">
+        <div class="img-wrapper">
+          <img src="assets/wanita.png" alt="Bride">
+        </div>
         <h3>Sofwatul Qoida</h3>
-        <p>Putri Ketiga dari<br>Bpk. Fahrudin & Ibu Siti </p>
+        <p>Putri Ketiga dari<br>Bpk. Fahrudin & Ibu Siti Baridah </p>
         <a href="#" style="color: var(--primary); margin-top: 10px; text-decoration: none;"><i
             class="fab fa-instagram"></i> @Sofwa </a>
       </div>
@@ -691,7 +775,7 @@
       <div class="event-card" data-aos="fade-up" data-aos-delay="200">
         <i class="fas fa-glass-cheers"></i>
         <h3>Resepsi</h3>
-        <p><strong>Minggu, 18 - 19 Juni 2026</strong></p>
+        <p><strong>Jum'at - Sabtu, 05 - 06 Juni 2026</strong></p>
         <p>Jl. Cendana Rt 02 Rw 05 Pamulian Kec. Warungpring Kab. Pemalang
         </p>
       </div>
@@ -779,11 +863,11 @@
       <div class="map-container">
         <!-- Placeholder for Maps -->
         <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126907.0347895057!2d106.74548489370808!3d-6.229728025217983!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f3e945e34b9d%3A0x100c5e82dd4b820!2sJakarta!5e0!3m2!1sen!2sid!4v1684305881471!5m2!1sen!2sid"
+          src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3959.282800448119!2d109.257881!3d-7.093182!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zN8KwMDUnMzUuNSJTIDEwOcKwMTUnMjguNCJF!5e0!3m2!1sid!2sid!4v1777139772277!5m2!1sid!2sid"
           allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
       </div>
-      <a href="https://maps.google.com" target="_blank" class="btn btn-outline" style="margin-top: 15px;"><i
-          class="fas fa-map-marker-alt"></i> Buka Google Maps</a>
+      <a href="https://maps.app.goo.gl/GvrHePnJeaHBGVWJ7" target="_blank" class="btn btn-outline"
+        style="margin-top: 15px;"><i class="fas fa-map-marker-alt"></i> Buka Google Maps</a>
     </div>
   </section>
 
