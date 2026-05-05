@@ -110,9 +110,17 @@
       animation: blink 1s infinite;
       color: #000000;
     }
+
     @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0; }
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0;
+      }
     }
 
     #cover .overlay {
@@ -171,7 +179,7 @@
     }
 
     .btn:hover {
-      background-color: #947100;
+      background-color: #635d49;
       transform: translateY(-3px);
     }
 
@@ -203,7 +211,9 @@
       overflow: hidden;
     }
 
-    #doa .bg-video {
+    #doa .bg-video,
+    #mempelai .bg-video,
+    #story .bg-video {
       position: absolute;
       top: 0;
       left: 0;
@@ -213,7 +223,9 @@
       z-index: 0;
     }
 
-    #doa .overlay {
+    #doa .overlay,
+    #mempelai .overlay,
+    #story .overlay {
       position: absolute;
       top: 0;
       left: 0;
@@ -223,7 +235,9 @@
       z-index: 1;
     }
 
-    #doa>* {
+    #doa>*,
+    #mempelai>*,
+    #story>* {
       position: relative;
       z-index: 2;
     }
@@ -247,18 +261,18 @@
 
     /* Mempelai Section */
     #mempelai {
-      background: linear-gradient(rgba(255, 189, 114, 0.5), rgba(255, 255, 255, 0.5)),
-        url('assets/bg2.jpg') center/cover;
+      position: relative;
+      overflow: hidden;
       border-radius: 20px;
       margin-top: 50px;
       padding: 80px 20px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+      box-shadow: 0 10px 30px rgba(255, 227, 149, 0.03);
     }
 
     /* Kisah Cinta Section */
     #story {
-      background: linear-gradient(rgba(255, 255, 255, 0.7), rgba(216, 168, 65, 0.7)),
-        url('assets/sf03.png') center/cover no-repeat fixed;
+      position: relative;
+      overflow: hidden;
       border-radius: 20px;
       margin-top: 50px;
       padding: 80px 20px;
@@ -286,19 +300,16 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      border-radius: 50%;
-      overflow: hidden;
       margin-bottom: 20px;
-      box-shadow: 0 0 25px rgba(197, 168, 128, 0.6);
     }
 
     .img-wrapper::before {
       content: '';
       position: absolute;
-      width: 150%;
-      height: 150%;
-      background: conic-gradient(transparent, var(--primary), #f1bb46, var(--primary), transparent 50%);
-      animation: rotateNeon 3s linear infinite;
+      width: 140%;
+      height: 140%;
+      background: url('assets/wrp.png') center/contain no-repeat;
+      animation: rotateNeon 20s linear infinite;
     }
 
     .img-wrapper img {
@@ -325,6 +336,7 @@
     .person h3 {
       font-size: 2rem;
       margin-bottom: 5px;
+      color: #502B0F;
     }
 
     .ampersand {
@@ -465,24 +477,91 @@
       margin-bottom: 5px;
     }
 
-    /* Gallery */
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 15px;
+    /* Gallery Slider */
+    .gallery-slider-container {
       margin-top: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
     }
 
-    .gallery-grid img {
-      width: 100%;
-      height: 250px;
+    .gallery-thumbnails {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .gallery-thumbnails img {
+      width: 70px;
+      height: 70px;
       object-fit: cover;
       border-radius: 10px;
-      transition: transform 0.3s ease;
+      cursor: pointer;
+      opacity: 0.5;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
     }
 
-    .gallery-grid img:hover {
-      transform: scale(1.03);
+    .gallery-thumbnails img.active {
+      opacity: 1;
+      border-color: var(--primary);
+      transform: scale(1.1);
+    }
+
+    .gallery-main {
+      width: 100%;
+      height: 350px;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+      position: relative;
+    }
+
+    .gallery-slider-track {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .gallery-slider-track img {
+      flex: 0 0 100%;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .slider-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.7);
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      color: var(--primary);
+      font-size: 1.2rem;
+      z-index: 2;
+      transition: all 0.3s;
+    }
+
+    .slider-btn:hover {
+      background: var(--primary);
+      color: var(--white);
+    }
+
+    .prev-btn {
+      left: 10px;
+    }
+
+    .next-btn {
+      right: 10px;
     }
 
     /* RSVP & Maps */
@@ -637,8 +716,8 @@
       align-items: center;
       padding: 10px 25px;
       border-radius: 30px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      border: 1px solid rgba(197, 168, 128, 0.3);
+      box-shadow: 0 4px 15px rgba(252, 228, 164, 0.1);
+      border: 1px solid rgba(255, 205, 135, 0.3);
       z-index: 998;
       width: max-content;
       max-width: 95%;
@@ -710,6 +789,7 @@
       0% {
         transform: translateY(-50%) rotate(0deg);
       }
+
       100% {
         transform: translateY(-50%) rotate(360deg);
       }
@@ -786,13 +866,17 @@
   <!-- 1. Halaman Cover -->
   <div id="cover">
     <video class="bg-video" autoplay loop muted playsinline>
-      <source src="assets/bg11.mp4" type="video/mp4">
+      <source src="assets/COVER.mp4" type="video/mp4">
     </video>
     <div class="overlay"></div>
+    <h4 data-aos="fade-down" style="margin-bottom: 0;">The Wedding Of</h4>
+    <h1 data-aos="zoom-in" data-aos-delay="100">Ida & Roy</h1>
     <p id="cover-date" style="font-weight: 800; font-size: 1.2rem; min-height: 1.8rem; margin-bottom: 5px;"></p>
     <p id="cover-kpd" style="font-weight: 800; font-size: 1rem; margin-bottom: 20px; min-height: 1.5rem;"></p>
-    <div style="margin-bottom: 30px; padding: 10px 20px; background: rgba(255,255,255,0.2); border-radius: 8px; backdrop-filter: blur(5px);">
-      <strong id="nama-tamu" style="font-weight: 900; font-size: 1.3rem; min-height: 1.9rem; display: inline-block;"></strong>
+    <div
+      style="margin-bottom: 30px; padding: 10px 20px; background: rgba(255,255,255,0.2); border-radius: 8px; backdrop-filter: blur(5px);">
+      <strong id="nama-tamu"
+        style="font-weight: 900; font-size: 1.3rem; min-height: 1.9rem; display: inline-block;"></strong>
     </div>
     <button class="btn" onclick="openInvitation()" data-aos="fade-up" data-aos-delay="400">
       <i class="fas fa-envelope-open mr-2"></i> Buka Undangan
@@ -802,7 +886,7 @@
   <!-- 2. Doa / Pembuka -->
   <section id="doa" data-aos="fade-up">
     <video class="bg-video" autoplay loop muted playsinline>
-      <source src="assets/bg2.mp4" type="video/mp4">
+      <source src="assets/BG1.mp4" type="video/mp4">
     </video>
     <div class="overlay"></div>
 
@@ -818,7 +902,11 @@
 
   <!-- 3. Kedua Mempelai -->
   <section id="mempelai">
-    <h2 class="accent-text" data-aos="fade-up">Kedua Mempelai</h2>
+    <video class="bg-video" autoplay loop muted playsinline>
+      <source src="assets/BG1.mp4" type="video/mp4">
+    </video>
+    <div class="overlay"></div>
+    <h2 class="accent-text" data-aos="fade-up" style="color: #341100;">Kedua Mempelai</h2>
     <p data-aos="fade-up" data-aos-delay="100" style="margin-bottom: 40px;">Maha Suci Allah yang telah menciptakan
       makhluk-Nya berpasang-pasangan. Ya Allah perkenankanlah kami merangkai kasih sayang yang Kau ciptakan di antara
       putra-putri kami:</p>
@@ -829,12 +917,12 @@
           <img src="assets/pria.png" alt="Groom">
         </div>
         <h3>Baini Roikhani</h3>
-        <p>Putra ke Lima dari<br>Bpk. Romadhon & Ibu Khamalah </p>
+        <p>Putra ke Lima dari<br>Bpk. Romadhon & Ibu Siti Khamalah </p>
         <a href="#" style="color: var(--primary); margin-top: 10px; text-decoration: none;"><i
             class="fab fa-instagram"></i> @baiinst</a>
       </div>
 
-      <div class="ampersand" data-aos="zoom-in">&</div>
+      <div class="ampersand" data-aos="zoom-in" style="color: #341100;">&</div>
 
       <div class="person" data-aos="fade-left">
         <div class="img-wrapper">
@@ -850,8 +938,9 @@
 
   <!-- 4. Resepsi & Acara -->
   <section id="acara">
-    <h2 class="accent-text" data-aos="fade-up">Detail Acara</h2>
-    <p data-aos="fade-up" data-aos-delay="100">Dengan memohon rahmat dan ridho Allah SWT, kami mengundang
+    <h2 class="accent-text" data-aos="fade-up" style="color: #341100;">Detail Acara</h2>
+    <p data-aos="fade-up" data-aos-delay="100" style="color: #341100;">Dengan memohon rahmat dan ridho Allah SWT, kami
+      mengundang
       Bapak/Ibu/Saudara/i untuk menghadiri acara pernikahan kami yang akan diselenggarakan pada:</p>
 
     <div class="countdown" data-aos="zoom-in">
@@ -881,7 +970,11 @@
 
   <!-- 5. Kisah Cinta -->
   <section id="story">
-    <h2 class="accent-text" data-aos="fade-up">Kisah Cinta</h2>
+    <video class="bg-video" autoplay loop muted playsinline>
+      <source src="assets/sf03.mp4" type="video/mp4">
+    </video>
+    <div class="overlay"></div>
+    <h2 class="accent-text" data-aos="fade-up" style="color: #341100;">Kisah Cinta</h2>
     <div class="timeline">
       <div class="timeline-item left" data-aos="fade-right">
         <div class="timeline-content">
@@ -912,19 +1005,23 @@
   <!-- 6. Galeri Foto -->
   <section id="gallery">
     <h2 class="accent-text" data-aos="fade-up">Galeri Foto</h2>
-    <div class="gallery-grid">
-      <img
-        src="https://images.unsplash.com/photo-1511895426328-dc8714191300?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
-        data-aos="zoom-in" data-aos-delay="100">
-      <img
-        src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
-        data-aos="zoom-in" data-aos-delay="200">
-      <img
-        src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
-        data-aos="zoom-in" data-aos-delay="300">
-      <img
-        src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
-        data-aos="zoom-in" data-aos-delay="400">
+    <div class="gallery-slider-container" data-aos="zoom-in">
+      <div class="gallery-thumbnails">
+        <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" onclick="changeSlide(0)" class="thumb active">
+        <img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" onclick="changeSlide(1)" class="thumb">
+        <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" onclick="changeSlide(2)" class="thumb">
+        <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" onclick="changeSlide(3)" class="thumb">
+      </div>
+      <div class="gallery-main">
+        <button class="slider-btn prev-btn" onclick="prevSlide()"><i class="fas fa-chevron-left"></i></button>
+        <div class="gallery-slider-track" id="slider-track">
+          <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Gallery Main 1">
+          <img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Gallery Main 2">
+          <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Gallery Main 3">
+          <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Gallery Main 4">
+        </div>
+        <button class="slider-btn next-btn" onclick="manualNextSlide()"><i class="fas fa-chevron-right"></i></button>
+      </div>
     </div>
   </section>
 
@@ -1090,6 +1187,43 @@
       }
     }, 1000);
 
+    // Gallery Slider Logic
+    const galleryCount = 4;
+    let currentSlide = 0;
+    let slideInterval = setInterval(nextSlide, 3000);
+
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % galleryCount;
+      changeSlide(currentSlide, false);
+    }
+
+    function manualNextSlide() {
+      currentSlide = (currentSlide + 1) % galleryCount;
+      changeSlide(currentSlide, true);
+    }
+
+    function prevSlide() {
+      currentSlide = (currentSlide - 1 + galleryCount) % galleryCount;
+      changeSlide(currentSlide, true);
+    }
+
+    function changeSlide(index, resetInterval = true) {
+      currentSlide = index;
+      
+      const track = document.getElementById('slider-track');
+      if(track) track.style.transform = `translateX(-${index * 100}%)`;
+
+      document.querySelectorAll('.gallery-thumbnails img').forEach((thumb, i) => {
+        if(i === index) thumb.classList.add('active');
+        else thumb.classList.remove('active');
+      });
+
+      if(resetInterval) {
+        clearInterval(slideInterval);
+        slideInterval = setInterval(nextSlide, 3000);
+      }
+    }
+
     // Get URL Parameter for Guest Name
     const urlParams = new URLSearchParams(window.location.search);
     const guestName = urlParams.get('to');
@@ -1108,13 +1242,13 @@
       if (currentTextIndex < coverTexts.length) {
         const currentItem = coverTexts[currentTextIndex];
         const el = document.getElementById(currentItem.id);
-        
+
         // Remove cursor from all
         coverTexts.forEach(item => {
           const element = document.getElementById(item.id);
           if (element) element.classList.remove('typing-cursor');
         });
-        
+
         // Add cursor to current
         if (el) el.classList.add('typing-cursor');
 
@@ -1130,7 +1264,7 @@
       } else {
         const lastEl = document.getElementById('nama-tamu');
         if (lastEl) lastEl.classList.remove('typing-cursor');
-        
+
         // Reset and repeat after a pause
         setTimeout(() => {
           coverTexts.forEach(item => {
