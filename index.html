@@ -686,7 +686,7 @@
     /* Footer */
     footer {
       min-height: 100vh;
-      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url('assets/ahir.jpg') center/cover no-repeat;
+      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url('assets/ahir.png?v=2') center/cover no-repeat;
       color: var(--white);
       text-align: center;
       padding: 80px 20px;
@@ -1007,18 +1007,32 @@
     <h2 class="accent-text" data-aos="fade-up">Galeri Foto</h2>
     <div class="gallery-slider-container" data-aos="zoom-in">
       <div class="gallery-thumbnails">
-        <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" onclick="changeSlide(0)" class="thumb active">
-        <img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" onclick="changeSlide(1)" class="thumb">
-        <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" onclick="changeSlide(2)" class="thumb">
-        <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" onclick="changeSlide(3)" class="thumb">
+        <img src="assets/edit1.jpg" onclick="changeSlide(0)" class="thumb active">
+        <img src="assets/EDIT2.jpg" onclick="changeSlide(1)" class="thumb">
+        <img src="assets/edit3.png" onclick="changeSlide(2)" class="thumb">
+        <img src="assets/edit4.jpg" onclick="changeSlide(3)" class="thumb">
+        <img src="assets/edit5.png?v=2" onclick="changeSlide(4)" class="thumb">
+        <img src="assets/edit6.png" onclick="changeSlide(5)" class="thumb">
+        <img src="assets/edit7.png" onclick="changeSlide(6)" class="thumb">
+        <img src="assets/edit8.jpeg?v=2" onclick="changeSlide(7)" class="thumb">
+        <img src="assets/edit9.png" onclick="changeSlide(8)" class="thumb">
+        <img src="assets/edit10.jpg" onclick="changeSlide(9)" class="thumb">
+        <img src="assets/edit11.png" onclick="changeSlide(10)" class="thumb">
       </div>
       <div class="gallery-main">
         <button class="slider-btn prev-btn" onclick="prevSlide()"><i class="fas fa-chevron-left"></i></button>
         <div class="gallery-slider-track" id="slider-track">
-          <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Gallery Main 1">
-          <img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Gallery Main 2">
-          <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Gallery Main 3">
-          <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Gallery Main 4">
+          <img src="assets/edit1.jpg" alt="Gallery Main 1">
+          <img src="assets/EDIT2.jpg" alt="Gallery Main 2">
+          <img src="assets/edit3.png" alt="Gallery Main 3">
+          <img src="assets/edit4.jpg" alt="Gallery Main 4">
+          <img src="assets/edit5.png?v=2" alt="Gallery Main 5">
+          <img src="assets/edit6.png" alt="Gallery Main 6">
+          <img src="assets/edit7.png" alt="Gallery Main 7">
+          <img src="assets/edit8.jpeg?v=2" alt="Gallery Main 8">
+          <img src="assets/edit9.png" alt="Gallery Main 9">
+          <img src="assets/edit10.jpg" alt="Gallery Main 10">
+          <img src="assets/edit11.png" alt="Gallery Main 11">
         </div>
         <button class="slider-btn next-btn" onclick="manualNextSlide()"><i class="fas fa-chevron-right"></i></button>
       </div>
@@ -1188,7 +1202,7 @@
     }, 1000);
 
     // Gallery Slider Logic
-    const galleryCount = 4;
+    const galleryCount = 11;
     let currentSlide = 0;
     let slideInterval = setInterval(nextSlide, 3000);
 
@@ -1209,16 +1223,16 @@
 
     function changeSlide(index, resetInterval = true) {
       currentSlide = index;
-      
+
       const track = document.getElementById('slider-track');
-      if(track) track.style.transform = `translateX(-${index * 100}%)`;
+      if (track) track.style.transform = `translateX(-${index * 100}%)`;
 
       document.querySelectorAll('.gallery-thumbnails img').forEach((thumb, i) => {
-        if(i === index) thumb.classList.add('active');
+        if (i === index) thumb.classList.add('active');
         else thumb.classList.remove('active');
       });
 
-      if(resetInterval) {
+      if (resetInterval) {
         clearInterval(slideInterval);
         slideInterval = setInterval(nextSlide, 3000);
       }
